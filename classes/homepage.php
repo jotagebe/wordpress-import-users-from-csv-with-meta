@@ -1,6 +1,6 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) exit; 
+if ( ! defined( 'ABSPATH' ) ) exit;
 
 class ACUI_Homepage{
 	public static function admin_gui(){
@@ -9,7 +9,7 @@ class ACUI_Homepage{
 
 		acui_check_options();
 ?>
-	<div class="wrap acui">	
+	<div class="wrap acui">
 
 		<?php if( $old_csv_files->found_posts > 0 ): ?>
 		<div class="postbox">
@@ -23,8 +23,8 @@ class ACUI_Homepage{
 		    	<p><?php _e( 'For security reasons you should delete this files, probably they would be visible in the Internet if a bot or someone discover the URL. You can delete each file or maybe you want delete all CSV files you have uploaded:', 'import-users-from-csv-with-meta' ); ?></p>
 		    	<input type="button" value="<?php _e( 'Delete all CSV files uploaded', 'import-users-from-csv-with-meta' ); ?>" id="bulk_delete_attachment" style="float:right;" />
 		    	<ul>
-		    		<?php while($old_csv_files->have_posts()) : 
-		    			$old_csv_files->the_post(); 
+		    		<?php while($old_csv_files->have_posts()) :
+		    			$old_csv_files->the_post();
 
 		    			if( get_the_date() == "" )
 		    				$date = "undefined";
@@ -38,11 +38,15 @@ class ACUI_Homepage{
 		        <div style="clear:both;"></div>
 		    </div>
 		</div>
-		<?php endif; ?>	
-
+		<?php endif; ?>
+            <!--
+        //XTEC ************ ELIMINAT - Removed to simplify user experience - 19.03.29 @svallde2
+        /*
 		<div id='message' class='updated'><?php _e( 'File must contain at least <strong>2 columns: username and email</strong>. These should be the first two columns and it should be placed <strong>in this order: username and email</strong>. If there are more columns, this plugin will manage it automatically.', 'import-users-from-csv-with-meta' ); ?></div>
 		<div id='message-password' class='error'><?php _e( 'Please, read carefully how <strong>passwords are managed</strong> and also take note about capitalization, this plugin is <strong>case sensitive</strong>.', 'import-users-from-csv-with-meta' ); ?></div>
-
+       */
+        //************ FI
+        -->
 		<div>
 			<h2><?php _e( 'Import users from CSV','import-users-from-csv-with-meta' ); ?></h2>
 		</div>
@@ -72,9 +76,9 @@ class ACUI_Homepage{
 				<tr class="form-field">
 					<th scope="row"><label for="role"><?php _e( 'Default role', 'import-users-from-csv-with-meta' ); ?></label></th>
 					<td>
-					<?php 
-						$list_roles = acui_get_editable_roles(); 
-						
+					<?php
+						$list_roles = acui_get_editable_roles();
+
 						foreach ($list_roles as $key => $value) {
 							if($key == "subscriber")
 								echo "<label style='margin-right:5px;'><input name='role[]' type='checkbox' checked='checked' value='$key'/>$value</label>";
@@ -86,7 +90,24 @@ class ACUI_Homepage{
 					<p class="description"><?php _e( 'You can also import roles from a CSV column. Please read documentation tab to see how it can be done. If you choose more than one role, the roles would be assigned correctly but you should use some plugin like <a href="https://wordpress.org/plugins/user-role-editor/">User Role Editor</a> to manage them.', 'import-users-from-csv-with-meta' ); ?></p>
 					</td>
 				</tr>
+                <!--
+               // XTEC ************ AFEGIT - Added link to show help
+               // 2016.05.06 @aginard
+               -->
+                <tr class="form-field form-required">
+                    <th scope="row"></th>
+                    <td>
+                        <a href="javascript:void(0)" onClick="toggleproviderhelp()"><?php _e('Where do I get this info?', 'import-users-from-csv-with-meta') ?></a>
+                    </td>
+                </tr>
+                <!--
+                //************ FI
+                -->
 
+            <!--
+                // XTEC ************ ELIMINAT - Hide comments and options to simply user's experience
+                // 2016.05.05 @aginard
+                /*
 				<tr class="form-field form-required">
 					<th scope="row"><label><?php _e( 'What should the plugin do with empty cells?', 'import-users-from-csv-with-meta' ); ?></label></th>
 					<td>
@@ -101,7 +122,7 @@ class ACUI_Homepage{
 					<th scope="row"><label for="user_login"><?php _e( 'Send mail', 'import-users-from-csv-with-meta' ); ?></label></th>
 					<td>
 						<p>
-							<?php _e( 'Do you wish to send a mail with credentials and other data?', 'import-users-from-csv-with-meta' ); ?> 
+							<?php _e( 'Do you wish to send a mail with credentials and other data?', 'import-users-from-csv-with-meta' ); ?>
 							<input type="checkbox" name="sends_email" value="yes" <?php if( get_option( 'acui_manually_send_mail' ) ): ?> checked="checked" <?php endif; ?>>
 						</p>
 						<p>
@@ -113,7 +134,9 @@ class ACUI_Homepage{
 
 				</tbody>
 			</table>
-
+                */
+                //************ FI
+                -->
 			<h2><?php _e( 'Update users', 'import-users-from-csv-with-meta'); ?></h2>
 
 			<table class="form-table">
@@ -145,7 +168,7 @@ class ACUI_Homepage{
 
 			<table class="form-table">
 				<tbody>
-				
+
 				<tr class="form-field form-required">
 					<th scope="row"><label for="delete_users"><?php _e( 'Delete users that are not present in the CSV?', 'import-users-from-csv-with-meta' ); ?></label></th>
 					<td>
@@ -157,7 +180,7 @@ class ACUI_Homepage{
 								<option value=''><?php _e( 'Delete posts of deled users without assing to any user', 'import-users-from-csv-with-meta' ); ?></option>
 								<?php
 									$blogusers = get_users( array( 'fields' => array( 'ID', 'display_name' ) ) );
-									
+
 									foreach ( $blogusers as $bloguser ) {
 										echo "<option value='{$bloguser->ID}'>{$bloguser->display_name}</option>";
 									}
@@ -177,8 +200,8 @@ class ACUI_Homepage{
 						<div style="margin-left:25px;">
 							<select id="change_role_not_present_role" name="change_role_not_present_role">
 								<?php
-									$list_roles = acui_get_editable_roles(); 
-						
+									$list_roles = acui_get_editable_roles();
+
 									foreach ($list_roles as $key => $value) {
 										echo "<option value='$key'>$value</option>";
 									}
@@ -193,7 +216,7 @@ class ACUI_Homepage{
 			</table>
 
 			<?php do_action( 'acui_tab_import_before_import_button' ); ?>
-				
+
 			<?php wp_nonce_field( 'acui-import', 'acui-nonce' ); ?>
 
 			<input class="button-primary" type="submit" name="uploadfile" id="uploadfile_btn" value="<?php _e( 'Start importing', 'import-users-from-csv-with-meta' ); ?>"/>
@@ -224,7 +247,7 @@ class ACUI_Homepage{
 				</a>
 			</div>
 			<?php endif; ?>
-			
+
 			<div class="sidebar_section" id="vote_us">
 				<h3>Rate Us</h3>
 				<ul>
@@ -248,22 +271,15 @@ class ACUI_Homepage{
 
 	</div>
 	<script type="text/javascript">
-	function check(){
-		if(document.getElementById("uploadfiles").value == "" && jQuery( "#upload_file" ).is(":visible") ) {
-		   alert("<?php _e( 'Please choose a file', 'import-users-from-csv-with-meta' ); ?>");
-		   return false;
-		}
-
-		if( jQuery( "#path_to_file" ).val() == "" && jQuery( "#introduce_path" ).is(":visible") ) {
-		   alert("<?php _e( 'Please enter a path to the file', 'import-users-from-csv-with-meta' ); ?>");
-		   return false;
-		}
-
-		if( jQuery("[name=role\\[\\]]input:checkbox:checked").length == 0 ){
-			alert("<?php _e( 'Please select a role', 'import-users-from-csv-with-meta'); ?>");
-		   	return false;	
-		}
-	}
+        // XTEC ************ MODIFICAT - Used check function from previous versions, because of the change of checkboxes by dropdown menu
+        // 2016.05.06 @aginard
+        function check(){
+            if(document.getElementById("uploadfiles").value === "") {
+                alert ("<?php $msg = _e('Please choose a file', 'import-users-from-csv-with-meta'); echo $msg; ?>");
+                return false;
+            }
+        }
+        //************ FI
 
 	jQuery( document ).ready( function( $ ){
 		$( ".delete_attachment" ).click( function(){
@@ -316,6 +332,127 @@ class ACUI_Homepage{
 
 	} );
 	</script>
-	<?php 
+
+        <!--
+        // XTEC ************ AFEGIT - Added Provided Help. Add Jquery library
+        // 2015.03.20 @nacho
+        // 2017.01.16 @xaviernietosanchez
+        -->
+        <script>
+            function toggleproviderhelp() {
+                <?php wp_enqueue_script('jQuery'); ?>
+                idp = 'importUsers';
+                jQuery('.iu_div_settings_help_' + idp).toggle();
+                return false;
+            }
+        </script>
+        <!--
+        // ************ FI
+        -->
+
+        <!--
+        //XTEC ************ AFEGIT - Added block for show help
+        //2015.03.20 @nacho
+        -->
+        <div
+                class="iu_div_settings_help_importUsers"
+                style="display:none;">
+            <table class="form-table editcomment">
+                <tbody>
+                <tr valign="top">
+                    <td>
+                        <div id="post-body-content">
+                            <div id="namediv" class="stuffbox">
+                                <h4 style="padding: 8px 12px; margin: 0.33em 0;">
+                                    <label>
+                                        <?php _e("Help", "import-users-from-csv-with-meta");?>
+                                    </label>
+                                </h4>
+                                <div class="inside">
+                                    <hr class="wsl">
+                                    <strong><?php _e("You should fill the first three rows with the next values", "import-users-from-csv-with-meta");?></strong><br/>
+                                    <ul><ol>
+                                            <li>
+                                                <strong>
+                                                    <?php _e("Username", "import-users-from-csv-with-meta");?>
+                                                </strong>
+                                                <?php _e("Sets the username.", "import-users-from-csv-with-meta");?>
+                                            </li>
+                                            <li>
+                                                <strong>
+                                                    <?php _e("Email", "import-users-from-csv-with-meta");?>
+                                                </strong>
+                                                <?php _e("Sets user email.", "import-users-from-csv-with-meta");?>
+                                            </li>
+                                            <li>
+                                                <strong>
+                                                    <?php _e("Password", "import-users-from-csv-with-meta");?>
+                                                </strong>
+                                                <?php _e("Sets user password.", "import-users-from-csv-with-meta");?>
+                                            </li>
+                                    </ul></ol>
+
+                                    <strong><?php _e("The next columns are totally customizable and you can use whatever you want. All rows must contains same columns", "import-users-from-csv-with-meta");?></strong><br/>
+
+                                    <ol>
+                                        <li>
+                                            <strong>
+                                                <?php _e("user_nicename", "import-users-from-csv-with-meta");?>
+                                            </strong>
+                                            <?php _e("A string that contains a URL-friendly name for the user. The default is the user's username.", "import-users-from-csv-with-meta");?>
+                                        </li>
+                                        <li>
+                                            <strong>
+                                                <?php _e("user_url", "import-users-from-csv-with-meta");?>
+                                            </strong>
+                                            <?php _e("A string containing the user's URL for the user's web site.", "import-users-from-csv-with-meta");?>
+                                        </li>
+                                        <li>
+                                            <strong>
+                                                <?php _e("display_name", "import-users-from-csv-with-meta");?>
+                                            </strong>
+                                            <?php _e("A string that will be shown on the site. Defaults to user's username. It is likely that you will want to change this, for both appearance and security through obscurity (that is if you dont use and delete the default admin user).", "import-users-from-csv-with-meta");?>
+                                        </li>
+                                        <li>
+                                            <strong>
+                                                <?php _e("nickname", "import-users-from-csv-with-meta");?>
+                                            </strong>
+                                            <?php _e("The user's nickname, defaults to the user's username.", "import-users-from-csv-with-meta");?>
+                                        </li>
+                                        <li>
+                                            <strong>
+                                                <?php _e("first_name", "import-users-from-csv-with-meta");?>
+                                            </strong>
+                                            <?php _e("The user's first name.", "import-users-from-csv-with-meta");?>
+                                        </li>
+                                        <li>
+                                            <strong>
+                                                <?php _e("last_name", "import-users-from-csv-with-meta");?>
+                                            </strong>
+                                            <?php _e("The user's last name.", "import-users-from-csv-with-meta");?>
+                                        </li>
+                                        <li>
+                                            <strong>
+                                                <?php _e("description", "import-users-from-csv-with-meta");?>
+                                            </strong>
+                                            <?php _e("A string containing content about the user.", "import-users-from-csv-with-meta");?>
+                                        </li>
+                                    </ol>
+                                    </hr>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <td width="10"></td>
+                    <td width="400"> </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <!--
+        */
+        //************ FI
+        -->
+	<?php
 	}
 }
