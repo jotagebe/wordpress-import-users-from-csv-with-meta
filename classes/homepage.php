@@ -16,9 +16,14 @@ class ACUI_Homepage{
 		    <div title="<?php _e( 'Click to open/close', 'import-users-from-csv-with-meta' ); ?>" class="handlediv">
 		      <br>
 		    </div>
-
-		    <h3 class="hndle"><span>&nbsp;&nbsp;&nbsp;<?php _e( 'Old CSV files uploaded', 'import-users-from-csv-with-meta' ); ?></span></h3>
-
+            <!--
+            // XTEC ************ MODIFICAT - Add whitespaces to correcte read
+            // 2016.12.21 @xaviernietosanchez
+            -->
+            <h3 class="hndle"><span>&nbsp;&nbsp;&nbsp;<?php _e( 'Old CSV files uploaded', 'import-users-from-csv-with-meta' ); ?></span></h3>
+            <!--
+            // ************ FI
+            -->
 		    <div class="inside" style="display: block;">
 		    	<p><?php _e( 'For security reasons you should delete this files, probably they would be visible in the Internet if a bot or someone discover the URL. You can delete each file or maybe you want delete all CSV files you have uploaded:', 'import-users-from-csv-with-meta' ); ?></p>
 		    	<input type="button" value="<?php _e( 'Delete all CSV files uploaded', 'import-users-from-csv-with-meta' ); ?>" id="bulk_delete_attachment" style="float:right;" />
@@ -63,8 +68,24 @@ class ACUI_Homepage{
 					<th scope="row"><label><?php _e( 'CSV file <span class="description">(required)</span></label>', 'import-users-from-csv-with-meta' ); ?></th>
 					<td>
 						<div id="upload_file">
+                            <!--
+                            // XTEC ************ AFEGIT - Only show to xtecadmin user
+                            // 2017.01.16 @xaviernietosanchez
+                            -->
+                            <?php if ( is_xtecadmin() ){ ?>
+                            <!--
+                            // ************ FI
+                            -->
 							<input type="file" name="uploadfiles[]" id="uploadfiles" size="35" class="uploadfiles" />
 							<?php _e( '<em>or you can choose directly a file from your host,', 'import-users-from-csv-with-meta' ) ?> <a href="#" class="toggle_upload_path"><?php _e( 'click here', 'import-users-from-csv-with-meta' ) ?></a>.</em>
+                            <!--
+                            // XTEC ************ AFEGIT - Only show to xtecadmin user
+                            // 2017.01.16 @xaviernietosanchez
+                            -->
+                            <?php } ?>
+                            <!--
+                            // ************ FI
+                            -->
 						</div>
 						<div id="introduce_path" style="display:none;">
 							<input placeholder="<?php _e( 'You have to introduce the path to file, i.e.:' ,'import-users-from-csv-with-meta' ); ?><?php $upload_dir = wp_upload_dir(); echo $upload_dir["path"]; ?>/test.csv" type="text" name="path_to_file" id="path_to_file" value="<?php echo dirname( __FILE__ ); ?>/test.csv" style="width:70%;" />

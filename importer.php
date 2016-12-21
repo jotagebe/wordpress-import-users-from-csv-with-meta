@@ -781,6 +781,7 @@ function acui_options(){
       	case 'homepage' :
 			ACUI_Homepage::admin_gui();
 		break;
+
 		case 'frontend':
 			ACUI_Frontend::admin_gui();
 		break;
