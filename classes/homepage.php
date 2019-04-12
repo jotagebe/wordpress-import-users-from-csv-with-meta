@@ -68,15 +68,15 @@ class ACUI_Homepage{
 					<th scope="row"><label><?php _e( 'CSV file <span class="description">(required)</span></label>', 'import-users-from-csv-with-meta' ); ?></th>
 					<td>
 						<div id="upload_file">
+                            <input type="file" name="uploadfiles[]" id="uploadfiles" size="35" class="uploadfiles" />
                             <!--
                             // XTEC ************ AFEGIT - Only show to xtecadmin user
                             // 2017.01.16 @xaviernietosanchez
                             -->
-                            <?php if ( is_xtecadmin() ){ ?>
+                            <?php if ( is_xtec_super_admin() ){ ?>
                             <!--
                             // ************ FI
                             -->
-							<input type="file" name="uploadfiles[]" id="uploadfiles" size="35" class="uploadfiles" />
 							<?php _e( '<em>or you can choose directly a file from your host,', 'import-users-from-csv-with-meta' ) ?> <a href="#" class="toggle_upload_path"><?php _e( 'click here', 'import-users-from-csv-with-meta' ) ?></a>.</em>
                             <!--
                             // XTEC ************ AFEGIT - Only show to xtecadmin user
@@ -243,53 +243,6 @@ class ACUI_Homepage{
 			<input class="button-primary" type="submit" name="uploadfile" id="uploadfile_btn" value="<?php _e( 'Start importing', 'import-users-from-csv-with-meta' ); ?>"/>
 			</form>
 		</div>
-
-		<div class="sidebar">
-			<div class="sidebar_section become_patreon">
-		    	<a class="patreon" color="primary" type="button" name="become-a-patron" data-tag="become-patron-button" href="https://www.patreon.com/bePatron?c=1741454" role="button">
-		    		<div><span><?php _e( 'Become a patron', 'import-users-from-csv-with-meta'); ?></span></div>
-		    	</a>
-		    </div>
-
-		    <?php if( substr( get_locale(), 0, 2 ) == 'es' ): ?>
-			<div class="sidebar_section" id="webempresa">
-				<h3>Tu web más rápida con Webempresa</h3>
-				<ul>
-					<li><label>Además ahora un <a href="https://codection.com/25-de-descuento-en-el-mejor-hosting-en-espanol-con-webempresa/">25% de descuento</a>.</label></li>
-				</ul>
-				<a href="https://codection.com/25-de-descuento-en-el-mejor-hosting-en-espanol-con-webempresa/" target="_blank">
-					<img src="<?php echo plugins_url(); ?>/import-users-from-csv-with-meta/assets/webempresa_logo.png">
-				</a>
-			</div>
-			<?php else: ?>
-			<div class="sidebar_section" style="padding:0 !important;border:none !important;background:none !important;">
-				<a href="https://codection.com/how-to-transfer-your-website-to-inmotion-hosting/" target="_blank">
-					<img src="<?php echo plugins_url(); ?>/import-users-from-csv-with-meta/assets/codection-inmotion.png">
-				</a>
-			</div>
-			<?php endif; ?>
-
-			<div class="sidebar_section" id="vote_us">
-				<h3>Rate Us</h3>
-				<ul>
-					<li><label>If you like it, Please vote and support us.</label></li>
-				</ul>
-			</div>
-			<div class="sidebar_section">
-				<h3>Having Issues?</h3>
-				<ul>
-					<li><label>You can create a ticket</label> <a target="_blank" href="http://wordpress.org/support/plugin/import-users-from-csv-with-meta"><label>WordPress support forum</label></a></li>
-					<li><label>You can ask for premium support</label> <a target="_blank" href="mailto:contacto@codection.com"><label>contacto@codection.com</label></a></li>
-				</ul>
-			</div>
-			<div class="sidebar_section">
-				<h3>Donate</h3>
-				<ul>
-					<li><label>If you appreciate our work and you want to help us to continue developing it and giving the best support</label> <a target="_blank" href="https://paypal.me/imalrod"><label>donate</label></a></li>
-				</ul>
-			</div>
-		</div>
-
 	</div>
 	<script type="text/javascript">
         // XTEC ************ MODIFICAT - Used check function from previous versions, because of the change of checkboxes by dropdown menu
